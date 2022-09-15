@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-3
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: myapp1
+    image: mahendrshinde/myweb:1
+    resources:
+      requests:
+        cpu: 2
+      limits:
+        cpu: 5
+
+    ports:
+      - containerPort: 80
