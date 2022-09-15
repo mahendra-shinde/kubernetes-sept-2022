@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfig
+data:
+  ACCESS_TOKEN: 23rtq23urgq2iu3rgu2qkv3tukywg3turavwjrycta
+  AUTH_URL: http://mahendra.com/api/oauth
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-po
+spec:
+  containers:
+  - name: c1
+    image: nginx:alpine
+    envFrom:
+    - configMapRef:
+        name: myconfig  
+    resources:
+      limits:
+        cpu: 50m
+        memory: 32Mi
+    ports:
+    - containerPort: 80
+
+
+
