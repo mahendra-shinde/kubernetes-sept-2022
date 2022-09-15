@@ -1,32 +1,42 @@
-Health Probe:
+# Health Probe:
 	
-	Check if application is "RESPONDING" (Running)
+* Check if application is "RESPONDING" (Running)
 
-	http probe:		Send "HTTP GET" request to certain path (User defined) with user defined frequency
-						Does expect either 200 Or 100 Http Status Code
+## http probe:
 
-	TCP probe:		Send "few packates" of data to pod and expect them to return (Ping or Telnet)
+* Send "HTTP GET" request to certain path (User defined) with user defined frequency
+
+* Does expect either 200 Or 100 Http Status Code
+
+## TCP probe:
+
+* Send "few packates" of data to pod and expect them to return (Ping or Telnet)
 	
-	CMD Probe:		Run a command and expect it return EXIT CODE "Zero"
+## CMD Probe:
 
--------------------------------------------------------------------------------------
-StartupProbe:
+* Run a command and expect it return EXIT CODE "Zero"
+
+
+## StartupProbe:
 	
-	Block all incoming requests untill application is UP and RUNNING.
-	Also block other "probes" like "LivenessProbe" and "ReadinessProbe"
+* Block all incoming requests until application is UP and RUNNING.
+* Also block other "probes" like "LivenessProbe" and "ReadinessProbe"
 	
-	Once, startup-probe returns a "SUCCESS", it will stop repeating itself.
+* Once, startup-probe returns a "SUCCESS", it will stop repeating itself.
 
 
-LivenessProbe:
-	Check if application is RUNNING or else RESTART it !
+## LivenessProbe:
+
+* Check if application is Healthy or else RESTART it !
 	
 
-ReadinessProbe:
-	Block all incoming requests untill application is UP and RUNNING.
-	It will NEVER restart application.
+## ReadinessProbe:
 
-	Readiness Probe will KEEPING repeating event after application is Ready.
+* Block all incoming requests until application is UP and RUNNING.
+
+* It will NEVER restart application.
+
+* Readiness Probe will KEEPING repeating even after application is Ready.
 
 # Liveness Probe Demo
 
@@ -48,9 +58,9 @@ $ kubectl get po -l app=myapp5
 
 Clean up
 
-	```
-	$ kubectl delete -f deploy2.yml
-	```
+```
+$ kubectl delete -f deploy2.yml
+```
 
 ## Readiness probe demo
 
@@ -78,8 +88,8 @@ $ exit
 $ kubectl describe ep probe-app
 ```
 
-Clean up
+## Clean up
 
-	```
-	$ kubectl delete -f deploy2.yml
-	```
+```
+$ kubectl delete -f deploy2.yml
+```
