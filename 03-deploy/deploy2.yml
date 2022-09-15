@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+spec:
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 1           # Create ONE Extra replica / instance only till update finishes
+      maxUnavailable: 1     # Allow only ONE instance to be unavailable
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+      - name: myapp
+        image: mahendrshinde/myweb:1            
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "10m"
+        ports:
+        - containerPort: 80
