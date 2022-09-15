@@ -41,11 +41,44 @@ $ exit
 ## Wait for 10 seconds
 $ kubectl logs $PODNAME
 # Wait for 20 Seconds more
-$ kubectl get po 
+$ kubectl logs $PODNAME
+$ kubectl get po -l app=myapp5
 
 ```
 
-1. Clean up
+Clean up
+
+	```
+	$ kubectl delete -f deploy2.yml
+	```
+
+## Readiness probe demo
+
+```
+$ kubectl apply -f deploy1.yml
+$ kubectl apply -f service.yml
+$ kubectl get po -l app=myapp4
+$ kubectl get ep probe-app
+$ kubectl describe ep probe-app
+$PODNAME=$(kubectl get po -l app=myapp4 -o=jsonpath="{ .items[0].metadata.name  }")
+$ kubectl exec -it $PODNAME -- sh
+$ cd /usr/share/nginx/html
+$ mv index.html index.txt
+$ exit
+# Wait for 30 seconds
+## Expected: One pod in "NotAvailable" group
+$ kubectl describe ep probe-app
+$PODNAME=$(kubectl get po -l app=myapp4 -o=jsonpath="{ .items[0].metadata.name  }")
+$ kubectl exec -it $PODNAME -- sh
+$ cd /usr/share/nginx/html
+$ mv index.txt index.html
+$ exit
+# Wait for 30 seconds
+## Expected: Zero pod in "NotAvailable" group
+$ kubectl describe ep probe-app
+```
+
+Clean up
 
 	```
 	$ kubectl delete -f deploy2.yml
