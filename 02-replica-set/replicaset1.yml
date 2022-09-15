@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs1
+spec:
+  replicas: 5        # Number of PODs to create
+  template:
+    metadata:
+      labels:
+        app: web1    # Label to be applied to all the child pods
+    spec:
+      containers:
+        - name: c1
+          image: mahendrshinde/myweb:1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 32Mi
+            limits:
+              cpu: 500m
+              memory: 64Mi
+  selector:
+    matchLabels:
+      app: web1       # Must match with line#10
+
+    
