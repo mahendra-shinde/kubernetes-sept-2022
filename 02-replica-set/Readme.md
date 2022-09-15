@@ -25,3 +25,25 @@ $ kubectl delete po -l app=web1
 $ kubectl get po -l app=web1
 $ kubectl delete -f replicaset1.yml
 ```
+
+## Autoscaling
+
+1. HorizontalPodAutoscaler v1 (HPA-v1)
+
+	```
+	$ kubectl apply -f replicaset1.yml
+	$ kubectl autoscale rs/rs1 --min=1 --max=10 --cpu-percent=50
+	$ kubectl describe hpa rs1
+	$ kubectl get po -l app=web1
+	$ kubectl delete hpa rs1
+	```
+
+2. HPA v2 (Recommanded)
+
+	```
+	$ kubectl apply -f replicaset1.yml
+	$ kubectl apply -f hpa-v2.yml
+	$ kubectl get po -w
+	$ kubectl delete -f hpa-v2.yml
+	$ kubectl delete -f replicaset1.yml
+	```

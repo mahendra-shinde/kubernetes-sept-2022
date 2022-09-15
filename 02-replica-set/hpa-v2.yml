@@ -12,7 +12,9 @@ spec:
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 30
-
+    scaleUp:
+      stabilizationWindowSeconds: 60
+    
   metrics:
   - type: Resource
     resource:
