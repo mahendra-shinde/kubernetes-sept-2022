@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probe-app2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp5
+  template:
+    metadata:
+      labels:
+        app: myapp5
+    spec:
+      containers:
+      - name: myapp
+        image: mahendrshinde/myweb:1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          failureThreshold: 3   # 3 Consecutive fails means probe failed, block the pod
+          periodSeconds: 10     # Seconds between two probes
+          timeoutSeconds: 3     # Must get HTTP Response within 3 seconds
+
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80
