@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app7
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app7
+  template:
+    metadata:
+      labels:
+        app: app7
+    spec:
+      containers:
+      - name: myapp
+        image: mahendrshinde/myweb:1
+        resources:
+          limits:
+            memory: "32Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80
